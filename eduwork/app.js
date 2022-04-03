@@ -6,6 +6,7 @@ var logger = require('morgan');
 const cors = require('cors');
 const productRoute = require('./app/product/router');
 const categoryRoute = require('./app/category/router');
+const tagRoute = require('./app/tag/router');
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', categoryRoute);
 app.use('/api', productRoute);
+app.use('/api', tagRoute);
 app.use('/', function(req, res) {
   res.render('index', {
     title : 'Eduwork Api Service'
