@@ -39,11 +39,9 @@ const update = async (req, res, next) => {
     next(err);
   }
 }
+
 const index = async (req, res, next) => {
   try {
-    let { skip = 0, limit = 10} = req.query;
-
-
     let tag = await Tag.find();
     return res.json(tag);
   } catch (err) {

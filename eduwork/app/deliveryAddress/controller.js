@@ -1,14 +1,16 @@
-const Categories = require('./model');
+const DeliveryAdresss = require('./model');
 
+const store = async (req, res, next ) => {
+  try {
 
-const store = async (req, res, next) => {
-  try{
     let payload = req.body;
-    let category = new Categories(payload);
-    await category.save();
-    return res.json(category);
+    let user = req.user;
+    let address = new DeliveryAdresss({...payload, user: user._id});
 
-  }catch (err) {
+    await address.save();
+    return res.json(address);
+  
+  } catch (err) {
     if(err && err.name === 'ValidationError') {
       return res.json({
         error : 1,
@@ -16,17 +18,17 @@ const store = async (req, res, next) => {
         fields : err.errors
       });
     }
-
     next(err);
   }
 }
 
+//update
 
 const update = async (req, res, next) => {
   try{
     let payload = req.body;
-    let category = await Categories.findByIdAndUpdate(req.params.id, payload, {new: true, runValidators: true});
-    return res.json(category);
+    let address = await DeliveryAdresss.findByIdAndUpdate(req.params.id, payload, {new: true, runValidators: true});
+    return res.json(address);
 
   }catch (err) {
     if(err && err.name === 'ValidationError') {
@@ -40,20 +42,22 @@ const update = async (req, res, next) => {
   }
 }
 
+//insert
 const index = async (req, res, next) => {
   try {
 
-    let category = await Categories.find();
-    return res.json(category);
+    let address = await DeliveryAdresss.find();
+    return res.json(address);
   } catch (err) {
     next(err)
   }
 }
 
+//delete
 const destroy = async (req, res, next) => {
   try{
-    let category = await Categories.findByIdAndDelete(req.params.id);
-    return res.json(category);
+    let address = await DeliveryAdresss.findByIdAndDelete(req.params.id);
+    return res.json(address);
 
   }catch (err) {
     if(err && err.name === 'ValidationError') {
