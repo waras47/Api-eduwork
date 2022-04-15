@@ -48,8 +48,15 @@ const index = async (req, res, next) => {
 
     let address = await DeliveryAdresss.find();
     return res.json(address);
-  } catch (err) {
-    next(err)
+  }catch (err) {
+    if(err && err.name === 'ValidationError') {
+      return res.json({
+        error : 1,
+        message : err.message,
+        fields : err.errors
+      });
+    }
+    next(err);
   }
 }
 
