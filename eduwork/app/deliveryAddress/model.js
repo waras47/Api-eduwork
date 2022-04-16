@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 
-const deliveryAdressSchema = new Schema ({
+const deliveryAdressSchema =  Schema ({
   name : {
     type: String,
     max : [255, 'panjang nama alamat maksimal 255 karakter'],
