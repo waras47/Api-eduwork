@@ -9,7 +9,7 @@ router.get(
 
 router.post(
   '/delivery-addresses', 
-  police_check('create', 'deliveryAddress'),
+  police_check('create', 'DeliveryAddress'),
   deliveryAddressController.store
   );
 router.put('/delivery-addresses/:id', deliveryAddressController.update);
